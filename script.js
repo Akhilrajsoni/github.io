@@ -21,6 +21,33 @@ themeToggle.addEventListener("click", () => {
   updateThemeIcon(newTheme);
 });
 
+// ==================== Mobile Menu Toggle ==================== //
+const hamburger = document.getElementById("hamburger");
+const navMenu = document.getElementById("navMenu");
+const navLinks = document.querySelectorAll(".nav-link");
+
+// Toggle menu
+hamburger.addEventListener("click", () => {
+  hamburger.classList.toggle("active");
+  navMenu.classList.toggle("active");
+});
+
+// Close menu when a link is clicked
+navLinks.forEach((link) => {
+  link.addEventListener("click", () => {
+    hamburger.classList.remove("active");
+    navMenu.classList.remove("active");
+  });
+});
+
+// Close menu when clicking outside
+document.addEventListener("click", (e) => {
+  if (!e.target.closest(".navbar")) {
+    hamburger.classList.remove("active");
+    navMenu.classList.remove("active");
+  }
+});
+
 // ==================== Scroll Animations ==================== //
 const observerOptions = {
   threshold: 0.1,
@@ -72,7 +99,7 @@ document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
 
 // ==================== Active Navigation Link ==================== //
 const sections = document.querySelectorAll("section[id]");
-const navLinks = document.querySelectorAll(".nav-link");
+const allNavLinks = document.querySelectorAll(".nav-link");
 
 window.addEventListener("scroll", () => {
   let current = "";
@@ -85,7 +112,7 @@ window.addEventListener("scroll", () => {
     }
   });
 
-  navLinks.forEach((link) => {
+  allNavLinks.forEach((link) => {
     link.classList.remove("active");
     if (link.getAttribute("href").slice(1) === current) {
       link.style.color = "var(--primary-color)";
